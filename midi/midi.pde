@@ -3,8 +3,7 @@ import javax.sound.midi.MidiMessage;
 
 MidiBus myBus;
 
-String[] names=new String[12];
-names=("a";"b");
+String[] names={"c","cis","d","dis","e","f","fis","g","gis","a","ais","h"};
 
 PVector leftbounds=new PVector(44,55);
 PVector rightbounds=new PVector(44,55);
@@ -42,7 +41,11 @@ void draw() {
   }
   
   for(int i=0;i<pressed.length;i++){
-    
+    if(pressed[i]){
+      fill(0);
+      textSize(100);
+      text(names[(i+9)%12]+""+floor((i+9)/12),width/2,height/2);
+    }
   }
 }
 
