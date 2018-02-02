@@ -25,15 +25,15 @@ class neural_net {
     }
 
 
-    saveTable(neurontable, "data/neurons_"+a);
-    saveTable(synapsetable, "data/synapses_"+a);
+    saveTable(neurontable, "data/neurons_"+a+".csv");
+    saveTable(synapsetable, "data/synapses_"+a+".csv");
   }
 
   void getnet(String a) {
 
     layers=new ArrayList();
     synapselayers=new ArrayList();
-    Table neurontable = loadTable("data/neurons_"+a);
+    Table neurontable = loadTable("data/neurons_"+a+".csv");
 
     for (int i=0; i<neurontable.getColumnCount(); i++) {
       layers.add(new layer(float(i+1)/float(neurontable.getColumnCount()+1), neurontable.getInt(0, i)));
@@ -46,7 +46,7 @@ class neural_net {
 
     afterinit();
 
-    Table synapsetable = loadTable("data/synapses_"+a);
+    Table synapsetable = loadTable("data/synapses_"+a+".csv");
 
     for (int i=0; i<synapsetable.getColumnCount()-1; i++) {
       FloatList temp = new FloatList();

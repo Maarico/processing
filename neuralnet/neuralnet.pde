@@ -12,7 +12,7 @@ float dampcount=0;
 int stepevery=100;
 int saveevery=10000;
 
-String saveloadas="net1.csv";
+String saveloadas="net1";
 
 void setup() {
   fullScreen();
@@ -60,7 +60,7 @@ void draw() {
       net.learn();
     }
     if(guesses%saveevery==0){
-      net.savenet(""+hour()+":"+minute()+":"+second());
+      net.savenet(""+hour()+"_"+minute()+"_"+second());
     }
     guesses++;
   }
