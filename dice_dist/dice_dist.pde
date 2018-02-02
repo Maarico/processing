@@ -1,4 +1,4 @@
-int dice=10;
+int dice=50;
 
 int total = 0;
 
@@ -6,7 +6,7 @@ float scaling = 100;
 
 IntList count = new IntList();
 
-int throwsperdraw = 10000;
+int throwsperdraw = 100000;
 
 boolean shapemode = true;
 
@@ -15,6 +15,7 @@ boolean shapemode = true;
 void setup() {
   background(255);
   size(1080,720);
+  //fullScreen();
   for (int i=dice-1; i<dice*6; i++) {
     count.append(0);
   }
@@ -46,6 +47,8 @@ void draw() {
   }
   fill(0);
   text(min(max(floor(map(mouseX,0,width,0,1)*(count.size()+1)+dice-0.5),dice),dice*6),mouseX,mouseY);
+  text(100*float(count.get(min(max(floor(map(mouseX,0,width,0,1)*(count.size()+1)-0.5),0),dice*5)))/float(total)+"%",mouseX,mouseY-10);
+  text(round(frameRate*throwsperdraw)+" throws per second",30,15);
   text(round(frameRate)+" fps",30,30);
   text("most frequent #: "+(dice-1+count.maxIndex()+1),30,45);
   text(100*float(count.max())/float(total)+"%of all throws hitting most frequent #: ",30,60);

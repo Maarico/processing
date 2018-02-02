@@ -1,6 +1,6 @@
 IntList configuration = new IntList(256, 16, 16, 10);
 neural_net net ;
-float stepsize = 0.0001;
+float stepsize = 0.00001;
 PImage current;
 
 int answer;
@@ -10,6 +10,7 @@ int correct_counter=0;
 float dampcount=0;
 
 int stepevery=100;
+int saveevery=10000;
 
 String saveloadas="net1.csv";
 
@@ -57,6 +58,9 @@ void draw() {
     net.calcgradient();
     if (guesses%stepevery==0) {
       net.learn();
+    }
+    if(guesses%saveevery==0){
+      net.savenet(""+hour()+":"+minute()+":"+second());
     }
     guesses++;
   }
