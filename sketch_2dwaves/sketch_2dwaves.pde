@@ -17,9 +17,10 @@ void setup() {
 
   for (int i=0; i<points.size(); i++) {
     for (int j=0; j<ampoints.y; j++) {
-      points.get(i).add(new PVector());
+      points.get(i).add(new PVector(exp(-pow(sqrt(pow(ampoints.x/2-i,2)+pow(ampoints.y/2-j,2)),2)*0.1),0));
     }
   }
+  //points.get(points.size()/2).get(points.get(points.size()/2).size()/2).x=1;
 }
 
 
@@ -30,9 +31,8 @@ void draw() {
   translate(scaler/2,scaler/2);
   rotateX(PI/4*(-float(mouseY)/100));
   rotateZ(float(mouseX)/100);
-  translate(-scaler/2,-scaler/2);
-  points.get(points.size()/2).get(points.get(points.size()/2).size()/2).x=1;//sin(float(frameCount)/20)*5;
-  points.get(points.size()/2).get(points.get(points.size()/2).size()/2).y=0; 
+  translate(-scaler/2,-scaler/2);//sin(float(frameCount)/20)*5;
+  //points.get(points.size()/2).get(points.get(points.size()/2).size()/2).y=0; 
   noFill();
   stroke(255);
   for (int i=0; i<points.size()-1; i++) {
@@ -42,10 +42,10 @@ void draw() {
       rect(map(i, 0, points.size(), 0, width), map(j, 0, points.get(i).size(), 0,height), float(width)/points.size()+1, float(height)/points.get(i).size()+1);
       */
       beginShape();
-      vertex(map(i, 0, points.size(), 0, scaler), map(j, 0, points.get(i).size(), 0,scaler),points.get(i).get(j).y*100);
-      vertex(map(i+1, 0, points.size(), 0, scaler), map(j, 0, points.get(i).size(), 0,scaler),points.get(i+1).get(j).y*100);
-      vertex(map(i+1, 0, points.size(), 0, scaler), map(j+1, 0, points.get(i).size(), 0,scaler),points.get(i+1).get(j+1).y*100);
-      vertex(map(i, 0, points.size(), 0, scaler), map(j+1, 0, points.get(i).size(), 0,scaler),points.get(i).get(j+1).y*100);
+      vertex(map(i, 0, points.size(), 0, scaler), map(j, 0, points.get(i).size(), 0,scaler),points.get(i).get(j).x*100);
+      vertex(map(i+1, 0, points.size(), 0, scaler), map(j, 0, points.get(i).size(), 0,scaler),points.get(i+1).get(j).x*100);
+      vertex(map(i+1, 0, points.size(), 0, scaler), map(j+1, 0, points.get(i).size(), 0,scaler),points.get(i+1).get(j+1).x*100);
+      vertex(map(i, 0, points.size(), 0, scaler), map(j+1, 0, points.get(i).size(), 0,scaler),points.get(i).get(j+1).x*100);
       endShape(CLOSE);
     }
   }
