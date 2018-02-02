@@ -1,6 +1,6 @@
 class neuron {
   float activation=0;
-  float x, y, dia, bias, desiredact, gradient;
+  float x, y, dia, bias, desiredact, gradient, lastdes;
   FloatList inputs = new FloatList();
   neuron(float a, float b, float c) {
     x=a;
@@ -18,12 +18,12 @@ class neuron {
     fill(activation*255);
     stroke(0);
     ellipse(x, y, dia, dia);
-    fill(255);
-    text(activation+","+gradient+","+desiredact,x,y);
+    //fill(255);
+    //text(activation+","+gradient+","+lastdes,x,y);
   }
 
   void setactivation() {
-    float temp=bias;
+    float temp=0;//bias;
     for (int i=0; i<inputs.size(); i++) {
       temp+=inputs.get(i);
     }
@@ -33,6 +33,7 @@ class neuron {
   
   void calcgradient(){
     gradient+=desiredact-activation;
+    lastdes=desiredact;
     desiredact=0;
   }
   

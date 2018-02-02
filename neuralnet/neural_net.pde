@@ -124,7 +124,7 @@ class neural_net {
       synapselayers.get(i).conveydesired();
       synapselayers.get(i).calcgradient();
     }
-    for (int i=layers.size()-2; i>=0; i--) {
+    for (int i=layers.size()-1; i>=0; i--) {
       layers.get(i).calcgradient();
     }
   }
@@ -133,9 +133,8 @@ class neural_net {
     for (int i=synapselayers.size()-1; i>=0; i--) {
       synapselayers.get(i).applygradient();
     }
-    for (int i=synapselayers.size()-1; i>=0; i--) {
+    for (int i=layers.size()-1; i>=0; i--) {
       layers.get(i).applygradient();
     }
-    println("learned");
   }
 }
