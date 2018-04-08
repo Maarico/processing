@@ -1,15 +1,15 @@
 IntList configuration = new IntList(256, 16, 16, 10);
 neural_net net ;
-float stepsize = 0.00001;
+float stepsize = 0.0001;
 PImage current;
 
 int answer;
 int guesses=1;
 
-int correct_counter=0;
-float dampcount=0;
+IntList correct_counter=new IntList();
+int oflast = 1000;
 
-int stepevery=100;
+int stepevery=1000;
 int saveevery=10000;
 
 String saveloadas="net1";
@@ -36,12 +36,10 @@ void draw() {
   }
   try {
     if (answer==net.getanswer()) {
-      correct_counter++;
+      correct_counter.set(guesses%oflast, 1);
+    } else {
+      correct_counter.set(guesses%oflast, 0);
     }
-    if (guesses%10000==0) {
-      correct_counter=0;
-    }
-    dampcount=lerp(float(correct_counter)/(float(guesses%10000)+1)*100, dampcount, 0.99);
   }
   catch(Exception e) {
     println("get_answer error");
@@ -54,12 +52,16 @@ void draw() {
     text("correct answer: "+answer, 0.6*width, 45);
     text("guess: "+net.getanswer(), 0.6*width, 35);
     text("guesses: "+guesses, 0.6*width, 55);
-    text(dampcount+"% of last 10000 guesses correct", 0.6*width, 65);
+    float correctnr = 0;
+    for(int i=0;i<correct_counter.size();i++){
+      correctnr+=float(correct_counter.get(i))/correct_counter.size();
+    }
+    text(float(round(correctnr*1000))/10+"% of last "+oflast+" guesses correct", 0.6*width, 65);
     net.calcgradient();
     if (guesses%stepevery==0) {
       net.learn();
     }
-    if(guesses%saveevery==0){
+    if (guesses%saveevery==0) {
       net.savenet(""+hour()+"_"+minute()+"_"+second());
     }
     guesses++;
