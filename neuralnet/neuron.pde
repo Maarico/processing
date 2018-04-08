@@ -32,13 +32,13 @@ class neuron {
   }
   
   void calcgradient(){
-    gradient+=desiredact-activation;
+    gradient+=(desiredact-activation);
     lastdes=desiredact;
     desiredact=0;
   }
   
   void applygradient(){
-    bias+=gradient*stepsize;
+    bias+=gradient*stepsize/stepevery;
     gradient=0;
   }
 

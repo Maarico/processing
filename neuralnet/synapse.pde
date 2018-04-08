@@ -25,12 +25,12 @@ class synapse {
       neuron destneuron = net.layers.get(round(destination.x)).neurons.get(round(destination.y));
       neuron startneuron = net.layers.get(round(start.x)).neurons.get(round(start.y));
       float desiredamp = (destneuron.desiredact-destneuron.activation);
-      gradient+=(desiredamp)*stepsize*startneuron.activation;
+      gradient+=(desiredamp)*stepsize*startneuron.activation*(startneuron.activation*(1-startneuron.activation));
     //}
   }
 
   void applygradient() {
-    amplifier+=gradient;
+    amplifier+=gradient/stepevery;
     gradient=0;
   }
 
