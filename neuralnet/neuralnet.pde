@@ -1,7 +1,9 @@
-IntList configuration = new IntList(256, 16, 16, 10);
+IntList configuration = new IntList(256, 50, 16, 10);
 neural_net net ;
-float stepsize = 0.00001;
+float stepsize = 0.01;
 PImage current;
+
+Table history=new Table();
 
 int answer;
 int guesses=1;
@@ -12,7 +14,7 @@ float dampcount=0;
 int stepevery=100;
 int saveevery=10000;
 
-String saveloadas="net1";
+String saveloadas="13_46_30";
 
 void setup() {
   fullScreen();
@@ -58,6 +60,9 @@ void draw() {
     net.calcgradient();
     if (guesses%stepevery==0) {
       net.learn();
+      //history.addColumn();
+      //history.setFloat(history.getColumnCount(),1,dampcount);
+      //saveTable(history,"history.csv");
     }
     if(guesses%saveevery==0){
       net.savenet(""+hour()+"_"+minute()+"_"+second());
